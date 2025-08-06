@@ -37,7 +37,7 @@ public class BookService {
 		
 	}
 	
-	//by name
+	//Get by name
 	
 	public  Books getBookbyName(String name) {
 		for(Books book:list) {
@@ -46,6 +46,14 @@ public class BookService {
 			}
 		}
 		return null;
+	}
+	
+	//adding the book
+	
+	public Books addBook(Books b) {
+		list.add(b);
+		return b;
+	
 	}
 	
 	
