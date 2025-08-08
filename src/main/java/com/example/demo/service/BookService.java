@@ -57,5 +57,14 @@ public class BookService {
 	}
 	
 	
+	//delete the book
+	
+	
+	public String deleteBook(int id) {
+	list.remove(id);
+	return "book deleted";
+		
+	}
+	
 	
 }
