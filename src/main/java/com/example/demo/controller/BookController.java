@@ -3,6 +3,9 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +24,13 @@ public class BookController {
 	BookService bs;
 	
 	@GetMapping("/book")
-	public List<Books> getBook() {	
-		return bs.getAll();
+	public ResponseEntity <List<Books>> getBook() {	
+	List<Books> book = bs.getAll();
+	if(book.isEmpty()) {
+		return (ResponseEntity<List<Books>>) ResponseEntity.status(HttpStatus.NOT_FOUND);
+	}
+	return ResponseEntity.ok(book);
+	
 		
 		
 	}
@@ -35,10 +43,13 @@ public class BookController {
 	
 	
 	@PostMapping("/add")
-	public Books addBook(@RequestBody Books b) {
+	public ResponseEntity<Books> addBook(@RequestBody Books b) {
 		
-				Books aaa = bs.addBook(b);
-				return aaa;
+		Books createdbook = bs.addBook(b);
+		
+		
+		
+				return ResponseEntity.ok(createdbook);
 		
 	}
 
