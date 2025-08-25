@@ -18,46 +18,37 @@ import com.example.demo.service.BookService;
 
 @RestController
 public class BookController {
-	
-	
+
 	@Autowired
 	BookService bs;
-	
+
 	@GetMapping("/book")
-	public ResponseEntity <List<Books>> getBook() {	
-	List<Books> book = bs.getAll();
-	if(book.isEmpty()) {
-		return (ResponseEntity<List<Books>>) ResponseEntity.status(HttpStatus.NOT_FOUND);
+	public ResponseEntity<List<Books>> getBook() {
+		List<Books> book = bs.getAll();
+		if (book.isEmpty()) {
+			return (ResponseEntity<List<Books>>) ResponseEntity.status(HttpStatus.NOT_FOUND);
+		}
+		return ResponseEntity.ok(book);
+
 	}
-	return ResponseEntity.ok(book);
-	
-		
-		
-	}
-	
-	
+
 	@GetMapping("/book/{id}")
 	public Books getByid(@PathVariable int id) {
 		return bs.getBookbyId(id);
 	}
-	
-	
+
 	@PostMapping("/add")
 	public ResponseEntity<Books> addBook(@RequestBody Books b) {
-		
+
 		Books createdbook = bs.addBook(b);
-		
-		
-		
-				return ResponseEntity.ok(createdbook);
-		
+
+		return ResponseEntity.ok(createdbook);
+
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public String deletenook(@PathVariable int id) {
+	public String deletebook(@PathVariable int id) {
 		return bs.deleteBook(id);
 	}
-	
-	
-	
+
 }

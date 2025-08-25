@@ -1,59 +1,47 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dao.BookDao;
 import com.example.demo.model.Books;
 
 
 @Service
 public class BookService {
 
-	private static List<Books> list = new ArrayList<>();
+	
+	@Autowired
+	BookDao dao;
+	//private static List<Books> list = new ArrayList<>();
 	
 	
-	static {
+	/*static {
 	list.add(new Books(1,"Time machine","premchand"));
 	list.add(new Books(2,"young girl","anni frank"));
 	
-	}
+	}*/
 	
 	
 	//get all books
 	public List<Books> getAll(){
-		return list;
+		return dao.findAll();
 	};
 	
 	//by id
 	public Books getBookbyId(int id) {
-		for(Books book: list) {
-			if(book.getId()==id) {
-				return book;
-			}
-		}
-		return null;
+		
+		return dao.findById(id);
 		
 	}
-	
-	//Get by name
-	
-	public  Books getBookbyName(String name) {
-		for(Books book:list) {
-			if(book.getName()==name) {
-				return book;
-			}
-		}
-		return null;
-	}
+
 	
 	//adding the book
 	
 	public Books addBook(Books b) {
-		list.add(b);
-		return b;
-	
+		return dao.save(b);	
 	}
 	
 	
@@ -61,9 +49,8 @@ public class BookService {
 	
 	
 	public String deleteBook(int id) {
-	list.remove(id);
-	return "book deleted";
-		
+dao.deleteById(id);
+		return "Book deleted";
 	}
 	
 
