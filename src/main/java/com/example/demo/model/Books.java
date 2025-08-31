@@ -1,9 +1,11 @@
 package com.example.demo.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,7 +15,10 @@ public class Books {
 @GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String name;
-	private String author;
+	
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private author author;
 	
 	
 	
@@ -22,7 +27,7 @@ public class Books {
 
 
 
-	public Books(int id, String name, String author) {
+	public Books(int id, String name, author author){
 		super();
 		this.id = id;
 		this.name = name;
@@ -55,13 +60,13 @@ public class Books {
 
 
 
-	public String getAuthor() {
+	public author getAuthor() {
 		return author;
 	}
 
 
 
-	public void setAuthor(String author) {
+	public void setAuthor(author author) {
 		this.author = author;
 	}
 
